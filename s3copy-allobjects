@@ -1,0 +1,14 @@
+## Replace "SourceBucketName" with your bucket name
+## Replace "DestinationBucketName" with your bucket name
+## this snippet will get all of the objects and copy them to another bucket
+## This will copy to a bucket in the same region and to a bucket in another region.
+
+$SourceBucketName = "SourceBucketName"
+$DestinationBucket = "DestinationBucketName"
+$keys = (get-S3Object -BucketName $SourceBucketName).key
+foreach ($i in $keys){
+  $i
+  Copy-S3Object -BucketName $SourceBucketName -Key $i -DestinationBucket $DestinationBucket -DestinationKey $i
+  get-S3Object -BucketName $DestinationBucket -Key $i
+
+}
